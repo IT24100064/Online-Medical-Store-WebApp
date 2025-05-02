@@ -24,7 +24,7 @@ public class BrandedMedicine extends Medicine {
         return String.format("%s (%s) %s - Rs. %.2f",
                 getName(),
                 brandName,
-                prescriptionRequired ? "(Prescription Required)" : "",
+                prescriptionRequired ? "(Prescription required)" : "",
                 getPrice());
     }
 
