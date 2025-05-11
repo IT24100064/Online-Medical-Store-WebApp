@@ -84,7 +84,7 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="text-2xl font-bold text-gray-800">₹${totalValue}</div>
+                        <div class="text-2xl font-bold text-gray-800">Rs${totalValue}</div>
                         <div class="text-gray-600">Total Inventory Value</div>
                     </div>
                 </div>

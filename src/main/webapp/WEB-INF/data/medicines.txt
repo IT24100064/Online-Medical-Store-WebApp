@@ -1,5 +1,3 @@
-MC76535,go,58.0,78,generic,2025-04-28,2025-05-14,qq
-MC58963,Panadol,25.53,850,branded,2025-04-21,2025-05-28,,false
-MC23323,kamal,45.0,90,generic,2025-05-02,2025-05-15,ggh
-8962663,K.A.Tashmi Oshera,90.0,20,branded,25/10/2025,2025-05-02,gojhjjiu,false
-MC23456,Vitamin C,20.0,1000,branded,SPC,2025-04-28,2025-05-30,false
+MC88888,zinc1,3.0,300,branded,CMC,2025-05-08,2025-05-28,false
+MC34567,Citrecine,23.0,500,branded,SPC,2025-04-30,spc,true
+MC44444,Dextrose S,60.0,300,branded,SPC,2025-04-29,2025-06-08,false

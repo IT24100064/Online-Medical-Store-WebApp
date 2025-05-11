@@ -55,8 +55,7 @@
     <div class="relative bg-white/90 rounded-3xl shadow-2xl w-full max-w-2xl p-0 overflow-hidden fade-in">
         <!-- Gradient Header with Illustration -->
         <div class="bg-gradient-to-r from-blue-600 to-blue-400 px-8 py-6 flex items-center gap-6">
-            <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/medicine.svg"
-                 alt="Medicine" class="h-16 w-16 drop-shadow-lg animate-bounce-slow" />
+
             <div>
                 <h2 class="text-3xl font-extrabold text-white mb-1 tracking-wide">Add Medicine</h2>
                 <p class="text-blue-100 text-sm">Fill in the details to add a new medicine to inventory.</p>
