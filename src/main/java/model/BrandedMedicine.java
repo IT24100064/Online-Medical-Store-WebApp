@@ -4,17 +4,21 @@ public class BrandedMedicine extends Medicine {
     private String brandName;
     private boolean prescriptionRequired;
 
+    // manufactureDate is stored in the 'manufacturer' field of Medicine for compatibility
     public BrandedMedicine(String id, String name, double price, int quantity,
-                           String manufacturer, String expiryDate,
-                           String brandName, boolean prescriptionRequired) {
-        // Pass "branded" as category
-        super(id, name, price, quantity, "branded", manufacturer, expiryDate);
+                           String brandName, String manufactureDate, String expiryDate,
+                           boolean prescriptionRequired) {
+        super(id, name, price, quantity, "branded", manufactureDate, expiryDate);
         this.brandName = brandName;
         this.prescriptionRequired = prescriptionRequired;
     }
 
     public String getBrandName() { return brandName; }
     public void setBrandName(String brandName) { this.brandName = brandName; }
+
+    // manufactureDate getter/setter mapped to 'manufacturer'
+    public String getManufactureDate() { return getManufacturer(); }
+    public void setManufactureDate(String manufactureDate) { setManufacturer(manufactureDate); }
 
     public boolean isPrescriptionRequired() { return prescriptionRequired; }
     public void setPrescriptionRequired(boolean prescriptionRequired) { this.prescriptionRequired = prescriptionRequired; }
@@ -24,21 +28,12 @@ public class BrandedMedicine extends Medicine {
         return String.format("%s (%s) %s - Rs. %.2f",
                 getName(),
                 brandName,
-                prescriptionRequired ? "(Prescription required)" : "",
+                prescriptionRequired ? "(Prescription Required)" : "",
                 getPrice());
     }
 
     @Override
     protected String getSpecificCSV() {
         return (brandName != null ? brandName : "") + "," + prescriptionRequired;
-    }
-
-    public static BrandedMedicine fromCSV(String[] parts) {
-        // Not used in main code, but can be used if needed.
-        return new BrandedMedicine(
-                parts[0], parts[1], Double.parseDouble(parts[2]),
-                Integer.parseInt(parts[3]), parts[5], parts[6], parts[7],
-                Boolean.parseBoolean(parts[8])
-        );
     }
 }
