@@ -38,7 +38,6 @@ public class EditMedicineServlet extends HttpServlet {
             String line;
             while ((line = reader.readLine()) != null) {
                 Medicine med = Medicine.fromCSV(line);
-                // Added null checks for med and med.getId()
                 if (med != null && med.getId() != null && med.getId().equals(id)) {
                     return med;
                 }
@@ -55,20 +54,20 @@ public class EditMedicineServlet extends HttpServlet {
         String priceStr = request.getParameter("price");
         String quantityStr = request.getParameter("quantity");
         String category = request.getParameter("category");
-        String manufacturer = request.getParameter("manufacturer");
+        String manufacturingDate = request.getParameter("manufacturingDate");
         String expiryDate = request.getParameter("expiryDate");
 
         String saltComposition = request.getParameter("saltComposition");
         String brandName = request.getParameter("brandName");
         String prescriptionRequiredStr = request.getParameter("prescriptionRequired");
 
-        // Validate required fields
+        // Validate required fields (manufacturer removed)
         if (id == null || name == null || priceStr == null || quantityStr == null ||
-                category == null || manufacturer == null || expiryDate == null ||
+                category == null || manufacturingDate == null || expiryDate == null ||
                 id.isEmpty() || name.isEmpty() || priceStr.isEmpty() || quantityStr.isEmpty() ||
-                category.isEmpty() || manufacturer.isEmpty() || expiryDate.isEmpty()) {
+                category.isEmpty() || manufacturingDate.isEmpty() || expiryDate.isEmpty()) {
 
-            request.setAttribute("error", "All fields are required");
+            request.setAttribute("error", "All required fields must be filled");
             request.getRequestDispatcher("/editMedicine.jsp").forward(request, response);
             return;
         }
@@ -80,19 +79,24 @@ public class EditMedicineServlet extends HttpServlet {
             Medicine updatedMedicine;
             switch (category.toLowerCase()) {
                 case "generic":
-                    updatedMedicine = new GenericMedicine(id, name, price, quantity, manufacturer, expiryDate, saltComposition);
+                    updatedMedicine = new GenericMedicine(
+                            id, name, price, quantity,
+                            manufacturingDate, expiryDate, saltComposition
+                    );
                     break;
                 case "branded":
                     boolean prescriptionRequired = Boolean.parseBoolean(prescriptionRequiredStr);
-                    updatedMedicine = new BrandedMedicine(id, name, price, quantity, manufacturer, expiryDate, brandName, prescriptionRequired);
+                    updatedMedicine = new BrandedMedicine(
+                            id, name, price, quantity,
+                            brandName, manufacturingDate, expiryDate,
+                            prescriptionRequired
+                    );
                     break;
                 default:
-                    // Use regular constructor instead of anonymous class
-                    updatedMedicine = new Medicine(id, name, price, quantity, category, manufacturer, expiryDate) {
+                    updatedMedicine = new Medicine(id, name, price, quantity,
+                            category, manufacturingDate, expiryDate) {
                         @Override
-                        public String getDescription() {
-                            return "";
-                        }
+                        public String getDescription() { return ""; }
                     };
             }
 
@@ -106,7 +110,6 @@ public class EditMedicineServlet extends HttpServlet {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         Medicine m = Medicine.fromCSV(line);
-                        // Add null checks for m and m.getId()
                         if (m != null && m.getId() != null && !m.getId().equals(id)) {
                             medicines.add(m);
                         }
