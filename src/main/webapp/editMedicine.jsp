@@ -46,12 +46,11 @@
                     class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="generic" <c:if test="${medicine.category eq 'generic'}">selected</c:if>>Generic</option>
                     <option value="branded" <c:if test="${medicine.category eq 'branded'}">selected</c:if>>Branded</option>
-                    <option value="other" <c:if test="${medicine.category eq 'other'}">selected</c:if>>Other</option>
                 </select>
             </div>
             <div>
-                <label class="block text-gray-700 font-medium mb-1">Manufacturer</label>
-                <input type="text" name="manufacturer" value="${medicine.manufacturer}" required
+                <label class="block text-gray-700 font-medium mb-1">Manufacture Date</label>
+                <input type="date" name="manufacturingDate" value="${medicine.manufacturer}" required
                     class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
             </div>
             <div>
