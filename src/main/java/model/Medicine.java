@@ -1,5 +1,6 @@
 package model;
 
+
 import java.io.Serializable;
 
 public abstract class Medicine implements Serializable {
@@ -8,7 +9,7 @@ public abstract class Medicine implements Serializable {
     private double price;
     private int quantity;
     private String category;
-    private String manufacturer;
+    private String manufacturer; // For BrandedMedicine: manufactureDate
     private String expiryDate;
 
     public Medicine(String id, String name, double price, int quantity,
@@ -52,7 +53,6 @@ public abstract class Medicine implements Serializable {
         );
     }
 
-    // Helper to avoid "null" in CSV
     private String safe(String s) {
         return (s == null) ? "" : s;
     }
@@ -70,14 +70,13 @@ public abstract class Medicine implements Serializable {
             String manufacturer = emptyToNull(parts[5]);
             String expiryDate = emptyToNull(parts[6]);
 
-            // Determine type by category or extra fields
-            if (category != null && category.equalsIgnoreCase("generic") && parts.length >= 8) {
+            if ("generic".equalsIgnoreCase(category) && parts.length >= 8) {
                 String salt = emptyToNull(parts[7]);
                 return new GenericMedicine(id, name, price, quantity, manufacturer, expiryDate, salt);
-            } else if (category != null && category.equalsIgnoreCase("branded") && parts.length >= 9) {
+            } else if ("branded".equalsIgnoreCase(category) && parts.length >= 9) {
                 String brand = emptyToNull(parts[7]);
                 boolean pres = parts[8].equalsIgnoreCase("true");
-                return new BrandedMedicine(id, name, price, quantity, manufacturer, expiryDate, brand, pres);
+                return new BrandedMedicine(id, name, price, quantity, brand, manufacturer, expiryDate, pres);
             } else {
                 return new Medicine(id, name, price, quantity, category, manufacturer, expiryDate) {
                     @Override
