@@ -1,0 +1,5 @@
+ID25879,jeewanthi,ABcd1234@,Jkumarasekara@gmail.com,ADMISSION;VIEW_LOGS,Admin account created
+ID58912,lashan,A12345678n,panchintho@gmail.com,MANAGE_INVENTORY;VIEW_REPORTS;MANAGE_USERS,Admin account created;Profile updated;Profile updated
+ID89896,it24200269,123456Ab,kasmithan15@gmail.com,MANAGE_INVENTORY;ADMISSION,Admin account created;Profile updated
+ID23456,raja,ABcd1234e,kasmithan15@gmail.com,MANAGE_INVENTORY;ADMISSION;VIEW_LOGS,Admin account created
+ID34780,N.S.K.Sanusti,@Kasmi15,sanusti15@gmail.com,MANAGE_USERS;VIEW_LOGS;ADMISSION,Admin account created
