@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <display-name>Feedback &amp; Review Management</display-name>
+
+    <!-- Submit Review Servlet -->
+    <servlet>
+        <servlet-name>submitReview</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.CreateReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>submitReview</servlet-name>
+        <url-pattern>/submitReview</url-pattern>
+    </servlet-mapping>
+
+    <!-- View Review Servlet -->
+    <servlet>
+        <servlet-name>ViewReviewServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.ViewReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewReviewServlet</servlet-name>
+        <url-pattern>/ViewReviews</url-pattern>
+    </servlet-mapping>
+
+    <!-- Moderate Review Servlet -->
+    <servlet>
+        <servlet-name>ModerateReviewServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.ModerateReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModerateReviewServlet</servlet-name>
+        <url-pattern>/moderateReview</url-pattern>
+    </servlet-mapping>
+
+    <!-- Index Servlet -->
+    <servlet>
+        <servlet-name>indexServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.IndexServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>indexServlet</servlet-name>
+        <url-pattern>/index</url-pattern> <!-- Changed to /index instead of /index.jsp -->
+    </servlet-mapping>
+
+    <!-- Edit Review Servlet -->
+    <servlet>
+        <servlet-name>EditReviewServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.EditReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditReviewServlet</servlet-name>
+        <url-pattern>/editReview</url-pattern> <!-- Added / for consistency -->
+    </servlet-mapping>
+
+    <!-- Delete Review Servlet -->
+    <servlet>
+        <servlet-name>DeleteReviewServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.DeleteReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteReviewServlet</servlet-name>
+        <url-pattern>/DeleteReview</url-pattern>
+    </servlet-mapping>
+</web-app>
