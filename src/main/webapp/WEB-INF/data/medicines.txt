@@ -1,3 +1,1 @@
-MC88888,zinc1,3.0,300,branded,CMC,2025-05-08,2025-05-28,false
-MC34567,Citrecine,23.0,500,branded,SPC,2025-04-30,spc,true
-MC44444,Dextrose S,60.0,300,branded,SPC,2025-04-29,2025-06-08,false
+MC33333,Oxm,23.0,130,branded,2025-05-06,2025-06-08,spc,true
