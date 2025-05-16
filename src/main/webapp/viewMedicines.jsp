@@ -46,7 +46,7 @@
               <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Price</th>
               <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Quantity</th>
               <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Category</th>
-              <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Manufacturer</th>
+              <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Manufacture Date</th>
               <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Expiry Date</th>
               <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Salt Composition</th>
               <th class="p-4 border-b font-semibold text-blue-900 text-sm tracking-wide text-left">Brand Name</th>
@@ -60,7 +60,7 @@
                 <tr class="even:bg-gray-50 odd:bg-white hover:bg-blue-50 transition">
                   <td class="p-4 border-b font-mono text-blue-700 align-middle">${not empty med.id ? med.id : 'N/A'}</td>
                   <td class="p-4 border-b font-semibold align-middle">${not empty med.name ? med.name : 'N/A'}</td>
-                  <td class="p-4 border-b text-green-700 font-bold align-middle">Rs.${med.price > 0 ? med.price : 'N/A'}</td>
+                  <td class="p-4 border-b text-green-700 font-bold align-middle">LKR.${med.price > 0 ? med.price : 'N/A'}</td>
                   <td class="p-4 border-b text-purple-700 font-bold align-middle">${med.quantity > 0 ? med.quantity : 'N/A'}</td>
                   <td class="p-4 border-b align-middle">
                     <c:choose>
