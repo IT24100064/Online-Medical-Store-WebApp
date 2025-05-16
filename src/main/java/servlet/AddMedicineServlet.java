@@ -18,13 +18,12 @@ public class AddMedicineServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Trim and format inputs
+        // Trim and format inputs (manufacturer removed)
         String id = request.getParameter("id") != null ? request.getParameter("id").trim().toUpperCase() : "";
         String name = request.getParameter("name") != null ? request.getParameter("name").trim() : "";
         String priceStr = request.getParameter("price") != null ? request.getParameter("price").trim() : "";
         String quantityStr = request.getParameter("quantity") != null ? request.getParameter("quantity").trim() : "";
         String category = request.getParameter("category") != null ? request.getParameter("category").trim() : "";
-        String manufacturer = request.getParameter("manufacturer") != null ? request.getParameter("manufacturer").trim() : "";
         String manufacturingDate = request.getParameter("manufacturingDate") != null ? request.getParameter("manufacturingDate").trim() : "";
         String expiryDate = request.getParameter("expiryDate") != null ? request.getParameter("expiryDate").trim() : "";
 
@@ -34,27 +33,27 @@ public class AddMedicineServlet extends HttpServlet {
                 request.getParameter("brandName").trim() : "";
         String prescriptionRequiredStr = request.getParameter("prescriptionRequired");
 
-        // Validate required fields
+        // Validate required fields (manufacturer removed)
         if (id.isEmpty() || name.isEmpty() || priceStr.isEmpty() || quantityStr.isEmpty() ||
-                category.isEmpty() || manufacturer.isEmpty() || manufacturingDate.isEmpty() || expiryDate.isEmpty()) {
+                category.isEmpty() || manufacturingDate.isEmpty() || expiryDate.isEmpty()) {
             sendError(request, response, "All required fields must be filled");
             return;
         }
 
-        // Validate ID format (exactly 7 chars: MC + 5 digits)
+        // Validate ID format (unchanged)
         if (!ID_PATTERN.matcher(id).matches()) {
             sendError(request, response, "Invalid ID format. Must be exactly 7 characters: 'MC' followed by 5 digits (e.g. MC12345)");
             return;
         }
 
         try {
-            // Validate ID uniqueness
+            // ID uniqueness check (unchanged)
             if (!isIdUnique(id)) {
                 sendError(request, response, "Medicine ID already exists");
                 return;
             }
 
-            // Validate price
+            // Price validation (unchanged)
             if (!PRICE_PATTERN.matcher(priceStr).matches()) {
                 sendError(request, response, "Invalid price format. Use numbers with optional decimal (e.g. 10.99)");
                 return;
@@ -65,7 +64,7 @@ public class AddMedicineServlet extends HttpServlet {
                 return;
             }
 
-            // Validate quantity
+            // Quantity validation (unchanged)
             if (!quantityStr.matches("^\\d+$")) {
                 sendError(request, response, "Quantity must be a whole number");
                 return;
@@ -76,12 +75,12 @@ public class AddMedicineServlet extends HttpServlet {
                 return;
             }
 
-            // Validate manufacturing and expiry dates
+            // Date validation (unchanged)
             DATE_FORMAT.setLenient(false);
             Date mfgDate = DATE_FORMAT.parse(manufacturingDate);
             Date expDate = DATE_FORMAT.parse(expiryDate);
-
             Date today = DATE_FORMAT.parse(DATE_FORMAT.format(new Date()));
+
             if (mfgDate.after(today)) {
                 sendError(request, response, "Manufacturing date cannot be in the future");
                 return;
@@ -91,7 +90,7 @@ public class AddMedicineServlet extends HttpServlet {
                 return;
             }
 
-            // Category-specific validations
+            // Category handling (fixed brand name usage)
             Medicine medicine;
             switch (category.toLowerCase()) {
                 case "generic":
@@ -111,14 +110,15 @@ public class AddMedicineServlet extends HttpServlet {
                         return;
                     }
                     boolean prescriptionRequired = Boolean.parseBoolean(prescriptionRequiredStr);
-                    medicine = new BrandedMedicine(id, name, price, quantity, manufacturer, manufacturingDate, expiryDate,  prescriptionRequired);
+                    // Corrected constructor: manufacturer parameter replaced with brandName
+                    medicine = new BrandedMedicine(id, name, price, quantity, brandName, manufacturingDate, expiryDate, prescriptionRequired);
                     break;
                 default:
                     sendError(request, response, "Invalid medicine category");
                     return;
             }
 
-            // Save to file
+            // Save to file (unchanged)
             String realPath = getServletContext().getRealPath(FILE_PATH);
             try (PrintWriter writer = new PrintWriter(new FileWriter(realPath, true))) {
                 writer.println(medicine.toCSV());
