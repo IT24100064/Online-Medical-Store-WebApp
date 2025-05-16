@@ -59,7 +59,7 @@
                            value="${param.name}"/>
                 </div>
                 <div>
-                    <label class="block text-gray-700 font-semibold mb-1">Price (₹)</label>
+                    <label class="block text-gray-700 font-semibold mb-1">Price (LKR)</label>
                     <input type="number" step="0.01" min="0.01" name="price" required
                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 bg-white shadow-sm"
                            value="${param.price}"/>
