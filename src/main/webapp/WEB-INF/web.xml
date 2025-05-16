@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>Medical Store Management</display-name>
+
+    <!-- Supplier Servlets -->
+    <servlet>
+        <servlet-name>ViewSuppliersServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.ViewSuppliersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSupplierServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.AddSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSupplierServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.EditSupplierServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSupplierServlet</servlet-name>
+        <servlet-class>com.onlinepharmacy.servlet.DeleteSupplierServlet</servlet-class>
+    </servlet>
+
+    <!-- Medicine Servlets -->
+
+
+
+    <!-- Servlet Mappings -->
+    <servlet-mapping>
+        <servlet-name>ViewSuppliersServlet</servlet-name>
+        <url-pattern>/viewSuppliers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSupplierServlet</servlet-name>
+        <url-pattern>/addSupplier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSupplierServlet</servlet-name>
+        <url-pattern>/editSupplier</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSupplierServlet</servlet-name>
+        <url-pattern>/deleteSupplier</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>
