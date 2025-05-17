@@ -1,0 +1,35 @@
+6fcb7c37-bdd6-41f2-b194-c2358d781956,Jeewanthi,jeee@gmail.com,123456,Regular,141/E,  Korathota,  kaduwela,0702070697
+28d3f3e0-6f12-48e1-a0bc-3cbe1b292d36,jeewanthi,osheratashmi@gmail.com,12345678,Regular,141/E,  korathota,  kaduwela,0773950919
+16c6552f-40f0-4a04-8e42-5e066912a81f,Pasindu,pasindu@gamial.com,123456789,Regular,141/E,  korathota,  kaduwela,0773950919
+f8e9dba2-d9c3-4119-a1b3-f3e47f3a055d,Jinanjalee,jina@gamail.com,1234567890,Regular,141/E,  korathota,  kaduwela,0773950919
+1bccd9c6-422a-4762-821e-5d2e75b72abe,Jinanjalee,jina@gamail.com,1234567890,Regular,141/E,  korathota,  kaduwela,0773950919
+adc10929-ddf5-43c4-8102-9600de31b707,suja,suja@gmail.com,suja,Admin
+3eacf1e8-5615-485f-9767-a054211dba2f,suja,suja1@gamial.com,suja,Admin
+565e3fda-be46-42bf-9e2f-ea5a4717c76b,hiru,hiru@gmail.com,123456,Admin
+c7ab4b67-d720-4f25-8cdb-e5e9d8e9e5e2,hi,hi,1222,Admin
+977a0f6a-ecd2-49c2-b025-0c40fcbad623,pasindu,hiru@gmail.com,123456789,Admin
+9467d1c8-69b8-435d-8ebf-02a6b0eddf39,lashan,tashi@gmai.com,123456abc,Regular,141/E, korathota, kaduwela,0702070697
+e3894e24-2a5e-4508-8f9a-02ab22bc3203,lashan,tashi@gmai.com,123456abc,Regular,141/E, korathota, kaduwela,0702070697
+e3b3ee06-d199-4c67-954c-67696c5aa175,lashan,tashi@gmai.com,123456abc,Admin
+6e4034e2-59cc-4722-b5b1-3b5f4c428126,lashan,tashi@gmai.com,123456abc,Regular,141/E, korathota, kaduwela,0702070697
+987f4474-b957-43d1-b006-8936c8a6e3cf,lashan,tashi@gmai.com,123456abc,Admin
+7a284135-a315-4fba-b944-b32849df6078,lashan,tashi@gmai.com,123456abc,Admin
+2f7e46c3-41e2-433f-b073-97f136e8cc58,lashan,tashi@gmai.com,123456abc,Admin
+57b6cee8-ead7-4a76-a8ff-c28a9181e0a7,lashan,tashi@gmai.com,123456abc,Regular,141/E, korathota, kaduwela,0702070697
+2626d066-062e-4016-b13a-519c2a393291,lashan,tashi@gmai.com,123456abc,Admin
+5b79ae84-2cba-4eb1-84ea-90d0a624b9a0,lashan,tashi@gmai.com,123456abc,Admin
+3f56dd8b-09f4-4bb1-8767-75c343641508,lashan,,123456abc,Admin
+e0dcb051-072b-4d65-9024-1a74e71e9e0b,lashan,osheratashmi@gmail.com,123456abc,Regular,141/E, korathota, kaduwela,0702070697
+bff7a7fb-dc27-49a3-beef-67985b69a57e,lashan,osheratashmi@gmail.com,A12345678n,Admin
+64e974d9-b51a-4b1b-936c-6a10317eaa51,lashan,osheratashmi@gmail.com,A12345678n,Regular,141/E, korathota, kaduwela,0702070697
+355cb45f-bfb4-4539-9ce6-713271f972c3,lashan,osheratashmi@gmail.com,A12345678n,Admin
+1e117efe-1b7b-4a68-ab36-cb4860d82311,lashan,osheratashmi@gmail.com,A12345678n,Regular,141/E, korathota, kaduwela,0702070697
+f5a9d90a-40ae-40e5-8346-a91c65ad1d29,lashan,osheratashmi@gmail.com,A12345678n,Regular,141/E, korathota, kaduwela,0702070697
+6d90237b-0c6c-46cf-a1ea-1fa6e695d9ef,lashan,osheratashmi@gmail.com,A12345678n,Admin
+e41f66bd-f700-4e7e-bcbe-91358b3993c3,lashan,osheratashmi@gmail.com,A12345678n,Regular,141/E, korathota, kaduwela,0702070697
+82e042a6-ccf8-4c52-a263-b4ca6da71f9c,lashan,osheratashmi@gmail.com,A12345678n,Admin
+96e8b089-74ef-4660-a0f8-89e5c8056319,lashan,osheratashmi@gmail.com,A12345678n,Admin
+0230cb6f-c7dc-4370-9d0e-9fb277aed131,lashan,osheratashmi@gmail.com,A12345678n,Regular,141/E,badulla,0702070697
+80a1e790-f5bd-4cbd-b09f-7ed4daed79b3,lashan,osheratashmi@gmail.com,A12345678n,Admin
+650847af-97fc-43d5-a49d-7a051c498de9,lashan,osheratashmi@gmail.com,A12345678n,Regular,dw,0702070697
+41a47af1-b459-434c-812b-aa7fa2022c34,lashan,osheratashmi@gmail.com,A12345678n,Regular,dw,0702070697
