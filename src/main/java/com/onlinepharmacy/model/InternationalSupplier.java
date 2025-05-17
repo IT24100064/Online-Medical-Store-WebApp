@@ -10,11 +10,4 @@ public class InternationalSupplier extends Supplier {
         this.country = country;
     }
 
-    public String getImportDuty() { return importDuty; }
-    public String getCountry() { return country; }
-
-    @Override
-    public String toCSV() {
-        return String.join(",", id, name, email, phone, address, companyName, "", importDuty, country);
-    }
 }
