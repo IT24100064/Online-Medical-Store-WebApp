@@ -1,0 +1,7 @@
+ID12598,Kasun,kasun@gamail.com,0258745693,14/,colombo,,,
+ID45673,Hirun,hirun@gmail.com,7895642332,12,kaduwela,,,
+ID49287,Hirun,hirun@gmail.com,7895642332,14/jjjk,Pharmacy,null,,
+ID49284,Hirunnika,hirun@gmail.com,7895642332,141/E,badulla,,null,null
+ID78521,Jeewanthi,Jee@gmail.com,7896222223,134 colombo,jeejjjkjkjk,,www,Sri Lanka
+ID45632,ISURU,Jee@gmail.com,7896222223,141/E,badulla,JOB,,
+ID45642,Alwis,Alwis@gmail.com,7896222223,141/E,Maharagama,JOB,,
