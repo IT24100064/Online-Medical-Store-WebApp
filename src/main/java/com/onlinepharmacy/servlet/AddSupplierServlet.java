@@ -37,5 +37,47 @@ public class AddSupplierServlet extends HttpServlet {
         if (errors.isEmpty() && !isIdUnique(id, request)) {
             errors.put("id", "Supplier ID already exists");
         }
+
+        Supplier supplier = null;
+        if (errors.isEmpty()) {
+            if ("local".equals(type)) {
+                String taxId = request.getParameter("taxId");
+                if (taxId == null || taxId.trim().isEmpty()) {
+                    errors.put("taxId", "Tax ID is required for Local Supplier");
+                } else {
+                    supplier = new LocalSupplier(id, name, email, phone, address, companyName, taxId);
+                }
+            } else if ("international".equals(type)) {
+                String importDuty = request.getParameter("importDuty");
+                String country = request.getParameter("country");
+                if (importDuty == null || importDuty.trim().isEmpty()) {
+                    errors.put("importDuty", "Import Duty is required for International Supplier");
+                }
+                if (country == null || country.trim().isEmpty()) {
+                    errors.put("country", "Country is required for International Supplier");
+                }
+                if (errors.isEmpty()) {
+                    supplier = new InternationalSupplier(id, name, email, phone, address, companyName, importDuty, country);
+                }
+            } else {
+                supplier = new Supplier(id, name, email, phone, address, companyName);
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("/addSupplier.jsp").forward(request, response);
+            return;
+        }
+
+        if (saveSupplier(supplier, request)) {
+            response.sendRedirect("viewSuppliers");
+        } else {
+            errors.put("general", "Error saving supplier");
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("/addSupplier.jsp").forward(request, response);
+        }
+    }
+
                 
 }
