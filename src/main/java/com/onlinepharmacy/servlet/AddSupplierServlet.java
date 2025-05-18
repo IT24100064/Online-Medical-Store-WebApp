@@ -24,7 +24,7 @@ public class AddSupplierServlet extends HttpServlet {
         String companyName = request.getParameter("companyName");
         String type = request.getParameter("type");
 
-        // Validate required fields
+         // Validate required fields
         if (id == null || id.trim().isEmpty()) errors.put("id", "Supplier ID is required");
         if (name == null || name.trim().isEmpty()) errors.put("name", "Name is required");
         if (email == null || email.trim().isEmpty()) errors.put("email", "Email is required");
@@ -33,80 +33,9 @@ public class AddSupplierServlet extends HttpServlet {
         if (companyName == null || companyName.trim().isEmpty()) errors.put("companyName", "Company Name is required");
         if (type == null || type.trim().isEmpty()) errors.put("type", "Supplier Type is required");
 
-        // Check ID uniqueness
+         // Check ID uniqueness
         if (errors.isEmpty() && !isIdUnique(id, request)) {
             errors.put("id", "Supplier ID already exists");
         }
-
-        Supplier supplier = null;
-        if (errors.isEmpty()) {
-            if ("local".equals(type)) {
-                String taxId = request.getParameter("taxId");
-                if (taxId == null || taxId.trim().isEmpty()) {
-                    errors.put("taxId", "Tax ID is required for Local Supplier");
-                } else {
-                    supplier = new LocalSupplier(id, name, email, phone, address, companyName, taxId);
-                }
-            } else if ("international".equals(type)) {
-                String importDuty = request.getParameter("importDuty");
-                String country = request.getParameter("country");
-                if (importDuty == null || importDuty.trim().isEmpty()) {
-                    errors.put("importDuty", "Import Duty is required for International Supplier");
-                }
-                if (country == null || country.trim().isEmpty()) {
-                    errors.put("country", "Country is required for International Supplier");
-                }
-                if (errors.isEmpty()) {
-                    supplier = new InternationalSupplier(id, name, email, phone, address, companyName, importDuty, country);
-                }
-            } else {
-                supplier = new Supplier(id, name, email, phone, address, companyName);
-            }
-        }
-
-        if (!errors.isEmpty()) {
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("/addSupplier.jsp").forward(request, response);
-            return;
-        }
-
-        if (saveSupplier(supplier, request)) {
-            response.sendRedirect("viewSuppliers");
-        } else {
-            errors.put("general", "Error saving supplier");
-            request.setAttribute("errors", errors);
-            request.getRequestDispatcher("/addSupplier.jsp").forward(request, response);
-        }
-    }
-
-    private boolean isIdUnique(String id, HttpServletRequest request) throws IOException {
-        String realPath = request.getServletContext().getRealPath(FILE_PATH);
-        File file = new File(realPath);
-        if (!file.exists()) return true;
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",", 2);
-                if (parts.length > 0 && parts[0].equals(id)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean saveSupplier(Supplier supplier, HttpServletRequest request) throws IOException {
-        String realPath = request.getServletContext().getRealPath(FILE_PATH);
-        File file = new File(realPath);
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-        }
-        try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
-            writer.println(supplier.toCSV());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+                
 }
