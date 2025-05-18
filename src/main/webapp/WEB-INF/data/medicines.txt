@@ -1,1 +1,4 @@
-MC33333,Oxm,23.0,130,branded,2025-05-06,2025-06-08,spc,true
+MC66666,Paracetamol,10.0,300,branded,2025-04-28,2025-07-31,Panadol,false
+MC45454,Paracetamol Sodium,8.0,400,generic,2025-04-10,2025-08-29,50 mg
+MC99999,Amoxicillin,16.0,500,branded,2025-02-06,2025-06-07,SPC,true
+MC77777,Amoxicillin Trihydrate,13.0,300,generic,2025-01-16,2025-11-30,30 mg
