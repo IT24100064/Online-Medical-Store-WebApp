@@ -1,1 +1,0 @@
-# Online-Medical-Store-WebApp
