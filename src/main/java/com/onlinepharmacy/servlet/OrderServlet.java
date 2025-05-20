@@ -28,7 +28,6 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
-        // Server-side validation: contact must be exactly 10 digits
         if (!contact.matches("\\d{10}")) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
@@ -83,13 +82,37 @@ public class OrderServlet extends HttpServlet {
         order.setOrderDate(new Date());
         order.setStatus("PENDING");
 
-        File file = new File(getServletContext().getRealPath(ORDERS_FILE));
-        file.getParentFile().mkdirs();
+        // Get the absolute path to the file
+        String realPath = getServletContext().getRealPath(ORDERS_FILE);
+        System.out.println("Writing to file: " + realPath);
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            bw.write(formatOrder(order));
+        File file = new File(realPath);
+
+        // Ensure parent directory exists
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            boolean dirCreated = parentDir.mkdirs();
+            if (!dirCreated) {
+                throw new ServletException("Failed to create directory: " + parentDir.getAbsolutePath());
+            }
+        }
+
+        // Use simpler approach without file locking to avoid ClosedChannelException
+        try (FileWriter fw = new FileWriter(file, true);
+             BufferedWriter bw = new BufferedWriter(fw)) {
+
+            String orderStr = formatOrder(order);
+            System.out.println("Writing new order: " + orderStr);
+            bw.write(orderStr);
             bw.newLine();
+
+            // Ensure data is written to disk
+            bw.flush();
+            System.out.println("Order saved successfully");
+
         } catch (IOException e) {
+            System.err.println("Error saving order: " + e.getMessage());
+            e.printStackTrace();
             throw new ServletException("Error saving order", e);
         }
 
@@ -109,7 +132,7 @@ public class OrderServlet extends HttpServlet {
         String newId;
         int attempts = 0;
         do {
-            int num = 1000 + random.nextInt(9000); // 1000-9999
+            int num = 1000 + random.nextInt(9000);
             newId = String.valueOf(num);
             attempts++;
             if (attempts > 10000) {
@@ -123,44 +146,92 @@ public class OrderServlet extends HttpServlet {
     private List<Order> readOrdersFromFile() throws IOException {
         List<Order> orders = new ArrayList<>();
         File file = new File(getServletContext().getRealPath(ORDERS_FILE));
+
+        // Ensure parent directory exists
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        // If file doesn't exist, create an empty file
         if (!file.exists()) {
+            file.createNewFile();
             return orders;
         }
+
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
+                // Skip empty lines
+                if (line.trim().isEmpty()) {
+                    continue;
+                }
+
                 Order order = parseOrder(line);
                 if (order != null) {
                     orders.add(order);
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error reading orders file: " + e.getMessage());
+            e.printStackTrace();
+            // Create a new file if there was an error reading
+            file.createNewFile();
         }
+
         return orders;
     }
 
     private Order parseOrder(String line) {
+        if (line == null || line.trim().isEmpty()) {
+            return null;
+        }
+
         try {
             String[] parts = line.split(DELIMITER);
-            if (parts.length < 8) return null;
+            if (parts.length < 8) {
+                System.err.println("Invalid order format, expected at least 8 parts but got: " + parts.length);
+                return null;
+            }
 
-            String orderId = parts[0];
-            String customerName = parts[1];
-            String contact = parts[2];
-            String address = parts[3];
-            int age = Integer.parseInt(parts[4]);
-            long orderDateMillis = Long.parseLong(parts[5]);
-            String status = parts[6];
-            String medsStr = parts[7];
+            String orderId = parts[0].trim();
+            String customerName = parts[1].trim();
+            String contact = parts[2].trim();
+            String address = parts[3].trim();
+
+            int age;
+            try {
+                age = Integer.parseInt(parts[4].trim());
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid age format: " + parts[4]);
+                return null;
+            }
+
+            long orderDateMillis;
+            try {
+                orderDateMillis = Long.parseLong(parts[5].trim());
+            } catch (NumberFormatException e) {
+                System.err.println("Invalid date format: " + parts[5]);
+                return null;
+            }
+
+            String status = parts[6].trim();
+            String medsStr = parts[7].trim();
 
             List<Medicine> medicines = new ArrayList<>();
-            if (!medsStr.trim().isEmpty()) {
+            if (!medsStr.isEmpty()) {
                 String[] medsArr = medsStr.split(",");
                 for (String med : medsArr) {
                     String[] medParts = med.split(":");
                     if (medParts.length == 2) {
-                        String medName = medParts[0];
-                        int qty = Integer.parseInt(medParts[1]);
-                        medicines.add(new Medicine(medName, qty));
+                        String medName = medParts[0].trim();
+                        try {
+                            int qty = Integer.parseInt(medParts[1].trim());
+                            medicines.add(new Medicine(medName, qty));
+                        } catch (NumberFormatException e) {
+                            System.err.println("Invalid quantity format: " + medParts[1]);
+                            // Continue processing other medicines
+                        }
                     }
                 }
             }
@@ -177,30 +248,60 @@ public class OrderServlet extends HttpServlet {
 
             return order;
         } catch (Exception e) {
+            System.err.println("Error parsing order: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
     }
 
     private String formatOrder(Order order) {
+        // Validate order data
+        if (order == null || order.getOrderId() == null || order.getCustomerName() == null ||
+            order.getContact() == null || order.getAddress() == null ||
+            order.getOrderDate() == null || order.getStatus() == null) {
+            throw new IllegalArgumentException("Order data is incomplete");
+        }
+
+        // Format medicines
         StringBuilder medsBuilder = new StringBuilder();
         List<Medicine> meds = order.getMedicines();
-        for (int i = 0; i < meds.size(); i++) {
-            Medicine m = meds.get(i);
-            medsBuilder.append(m.getName()).append(":").append(m.getQuantity());
-            if (i < meds.size() - 1) {
-                medsBuilder.append(",");
+        if (meds != null && !meds.isEmpty()) {
+            for (int i = 0; i < meds.size(); i++) {
+                Medicine m = meds.get(i);
+                if (m != null && m.getName() != null) {
+                    medsBuilder.append(m.getName().trim()).append(":").append(m.getQuantity());
+                    if (i < meds.size() - 1) {
+                        medsBuilder.append(",");
+                    }
+                }
             }
         }
 
-        return order.getOrderId() + "|" +
-                order.getCustomerName() + "|" +
-                order.getContact() + "|" +
-                order.getAddress() + "|" +
-                order.getAge() + "|" +
-                order.getOrderDate().getTime() + "|" +
-                order.getStatus() + "|" +
+        // Sanitize data to prevent delimiter conflicts
+        String orderId = sanitize(order.getOrderId());
+        String customerName = sanitize(order.getCustomerName());
+        String contact = sanitize(order.getContact());
+        String address = sanitize(order.getAddress());
+        String status = sanitize(order.getStatus());
+
+        // Build the formatted string
+        return orderId + DELIMITER_WRITE +
+                customerName + DELIMITER_WRITE +
+                contact + DELIMITER_WRITE +
+                address + DELIMITER_WRITE +
+                order.getAge() + DELIMITER_WRITE +
+                order.getOrderDate().getTime() + DELIMITER_WRITE +
+                status + DELIMITER_WRITE +
                 medsBuilder.toString();
+    }
+
+    // Helper method to sanitize data and prevent delimiter conflicts
+    private String sanitize(String input) {
+        if (input == null) {
+            return "";
+        }
+        // Replace pipe character with a space to avoid delimiter conflicts
+        return input.trim().replace("|", " ");
     }
 
     @Override
