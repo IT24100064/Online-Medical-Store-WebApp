@@ -1,5 +1,7 @@
 package com.onlinepharmacy.model;
 
+//Vr
+
 public class VerifiedReview extends Review {
     public VerifiedReview(String reviewId, String medicineName, String customerName, int rating, String comment, String orderId) {
         super(reviewId, medicineName, customerName, rating, comment, orderId);
