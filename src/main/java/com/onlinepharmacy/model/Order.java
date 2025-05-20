@@ -14,7 +14,7 @@ public class Order implements Serializable {
     private int age;
     private List<Medicine> medicines;
     private Date orderDate;
-    private String status; // PENDING, PROCESSING, DISPATCHED, CANCELED, COMPLETED
+    private String status;
 
     public Order() {}
 
@@ -29,7 +29,6 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    // Getters and Setters
     public String getOrderId() {
         return orderId;
     }
