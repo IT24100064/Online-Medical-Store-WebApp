@@ -2,9 +2,9 @@ package com.onlinepharmacy.servlet;
 
 import com.onlinepharmacy.model.Review;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
 import java.io.*;
 import java.util.*;
 
